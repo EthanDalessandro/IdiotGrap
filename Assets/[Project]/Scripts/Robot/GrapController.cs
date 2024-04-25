@@ -18,7 +18,7 @@ public class GrapController : MonoBehaviour
 
     private void Update()
     {
-        //JE SUIS UN DIEU VIVANT VIVE LA PROG AVEC DU KAARIS DANS LES OREILLES
+        //Vive KAARIS
         MoveGrap();
 
         if (chainComponents[chainSpawnedCount].connectedAnchor.y <= -1.5f)
