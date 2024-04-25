@@ -4,14 +4,18 @@ using UnityEngine.InputSystem;
 public class RobotMovementController : MonoBehaviour
 {
     private Vector2 direction;
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     [Range(1, 20)] public float moveSpeed;
 
     private void Update()
     {
-        transform.position = new Vector3(transform.position.x + direction.x * moveSpeed * Time.deltaTime,
-                                         transform.position.y,
-                                         transform.position.z + direction.y * moveSpeed * Time.deltaTime);
+        rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, direction.y * moveSpeed);
 
     }
 
