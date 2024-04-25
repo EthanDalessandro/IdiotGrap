@@ -3,14 +3,27 @@ using UnityEngine.InputSystem;
 
 public class RobotMovementController : MonoBehaviour
 {
+    private Vector2 direction;
+
+    [Range(1, 20)] public float moveSpeed;
+
+    private void Update()
+    {
+        transform.position = new Vector3(transform.position.x + direction.x * moveSpeed * Time.deltaTime,
+                                         transform.position.y,
+                                         transform.position.z + direction.y * moveSpeed * Time.deltaTime);
+
+    }
 
     public void OnRobotMove(InputAction.CallbackContext context)
     {
-        Vector2 direction = context.ReadValue<Vector2>();
-
-        if(context.performed)
+        if (context.performed)
         {
-            transform.position = new Vector3(transform.position.x + direction.x, transform.position.y, transform.position.z + direction.y);
+            direction = context.ReadValue<Vector2>();
+        }
+        else
+        {
+            direction = Vector2.zero;
         }
     }
 }
