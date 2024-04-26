@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 28057656478878357}
   - component: {fileID: 2921505401715356510}
   - component: {fileID: 228592034633621036}
+  - component: {fileID: 2889584239935188262}
   m_Layer: 0
   m_Name: ChainComponentLeader
   m_TagString: ChainComponent
@@ -185,7 +186,7 @@ HingeJoint:
   m_UseAcceleration: 0
   m_Limits:
     min: 0
-    max: 0
+    max: 30
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -195,6 +196,20 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2889584239935188262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248790213811417177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7761ab5cfca253a4aa1e1443f618bc76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graplin: {fileID: 3248790213811417177}
+  liftableObjects: []
 --- !u!1 &4602757112099526592
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,5 +527,3 @@ MonoBehaviour:
   chainSpawnedCount: 0
   baseObjectToAttachJoints: {fileID: 4953111122410145731}
   grapFallingSpeed: 2
-  grapYAxisDirection: 0
-  isArmStabilizing: 0

@@ -7,7 +7,7 @@ public class GrapController : MonoBehaviour
     public GameObject chainObjectPrefab;
     public Transform parentToSpawnIn;
 
-    public List<HingeJoint> chainComponents;
+    public List<HingeJoint> chainComponents = new List<HingeJoint>();
     public int chainSpawnedCount;
 
     public Transform baseObjectToAttachJoints;

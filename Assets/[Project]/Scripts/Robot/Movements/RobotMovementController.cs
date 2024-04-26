@@ -8,6 +8,7 @@ public class RobotMovementController : MonoBehaviour
 
     private void Start()
     {
+        //VIVE KAARIS
         rb = GetComponent<Rigidbody>();
     }
 
