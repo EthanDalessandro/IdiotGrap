@@ -392,7 +392,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4427cc9e5bf704e4baac885e08efeb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fanMode: 0
+  isOn: 0
+  _fanRotation: {fileID: 492029698}
+  _fanWindZone: {fileID: 1247580278}
+  _windDuration: 2
+  _delayBetweenBlow: 5
+  _OnElementOn:
+    m_PersistentCalls:
+      m_Calls: []
+  _OnElementOff:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &355678978
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,7 +639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e039117ebcedb1740b6afec1c189a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tourPerSec: 1
 --- !u!1 &810005172
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,7 +904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d656e637cf1e0b4ea628090a17cbca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _windForce: 0
+  _fanRotation: {fileID: 492029698}
+  _maxWindForce: 200
 --- !u!65 &1247580279
 BoxCollider:
   m_ObjectHideFlags: 0
