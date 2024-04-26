@@ -785,60 +785,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1853554061065784568, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1853554061065784568, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1853554061065784568, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8158323540870919368}
-    - target: {fileID: 1853554061065784568, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1853554061065784568, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GrapObject
-      objectReference: {fileID: 0}
-    - target: {fileID: 1853554061065784568, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GrapLift, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1853554061065784568, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2889584239935188262, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: grapParent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4602757112099526592, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_TagString
-      value: ChainComponent
-      objectReference: {fileID: 0}
     - target: {fileID: 6762724709908341492, guid: 1ebf10ef66431b94dae4290f334f7d36,
         type: 3}
       propertyPath: m_Name
       value: Robot
-      objectReference: {fileID: 0}
-    - target: {fileID: 6762724709908341492, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8259937672688721926, guid: 1ebf10ef66431b94dae4290f334f7d36,
         type: 3}
@@ -895,18 +845,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ebf10ef66431b94dae4290f334f7d36, type: 3}
---- !u!114 &8158323540870919368 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2889584239935188262, guid: 1ebf10ef66431b94dae4290f334f7d36,
-    type: 3}
-  m_PrefabInstance: {fileID: 5874244069827117415}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7761ab5cfca253a4aa1e1443f618bc76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
