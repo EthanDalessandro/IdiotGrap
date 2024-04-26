@@ -13,13 +13,63 @@ public class GrapController : MonoBehaviour
     public Transform baseObjectToAttachJoints;
 
     public float grapFallingSpeed;
-    public float grapYAxisDirection;
+    private float grapYAxisDirection;
+    private bool isArmStabilizing;
 
     private void Update()
     {
         //Vive KAARIS
         MoveGrap();
+        ChainConstruction();
+        StabilizeArmUpdating();
+    }
 
+    private void StabilizeArmUpdating()
+    {
+        if (chainComponents.Count > 1)
+        {
+            foreach (HingeJoint joint in chainComponents)
+            {
+                if (isArmStabilizing)
+                {
+                    joint.massScale += Time.deltaTime;
+                }
+                else
+                {
+                    joint.massScale--;
+                }
+                joint.massScale = Mathf.Clamp(joint.massScale, 1, 4);
+            }
+        }
+    }
+
+    public void GrapYAxisValue(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            grapYAxisDirection = context.ReadValue<float>();
+        }
+        else
+        {
+            grapYAxisDirection = 0;
+        }
+    }
+
+    public void StabilizeArm(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isArmStabilizing = true;
+        }
+        else
+        {
+            isArmStabilizing = false;
+        }
+
+    }
+
+    private void ChainConstruction()
+    {
         if (chainComponents[chainSpawnedCount].connectedAnchor.y <= -1.5f)
         {
             GameObject chainSpawned = Instantiate(chainObjectPrefab, chainComponents[chainSpawnedCount].transform.position, Quaternion.identity, parentToSpawnIn);
@@ -44,19 +94,6 @@ public class GrapController : MonoBehaviour
             }
         }
     }
-
-    public void GrapYAxisValue(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            grapYAxisDirection = context.ReadValue<float>();
-        }
-        else
-        {
-            grapYAxisDirection = 0;
-        }
-    }
-
 
     private void MoveGrap()
     {

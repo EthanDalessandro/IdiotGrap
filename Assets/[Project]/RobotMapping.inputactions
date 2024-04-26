@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "StabilizeArm",
+                    "type": "Button",
+                    "id": "80572d4c-da62-4691-8346-b0bffedd8fb3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -152,6 +161,17 @@
                     "action": "GrapYAxisMove",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "599551f6-59f2-4134-8b6c-d48abf3d6422",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StabilizeArm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
