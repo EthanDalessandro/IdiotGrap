@@ -11,7 +11,7 @@ public class PressurePlate : MonoBehaviour
         if(!_connectedOnOff)
             return;
         
-        if(other.GetComponent<EnginerControler>())
+        if(other.GetComponent<EnginerControler>() || other.tag == "Crate")
             _connectedOnOff.SetOnOff(true);
     }
 
@@ -20,7 +20,7 @@ public class PressurePlate : MonoBehaviour
         if(!_connectedOnOff)
             return;
         
-        if(other.GetComponent<EnginerControler>())
+        if(other.GetComponent<EnginerControler>() || other.tag == "Crate")
             _connectedOnOff.SetOnOff(false);
     }
 }
