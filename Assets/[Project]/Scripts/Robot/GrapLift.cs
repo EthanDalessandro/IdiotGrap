@@ -7,11 +7,49 @@ public class GrapLift : MonoBehaviour
     public List<GameObject> liftableObjects;
     private Vector3 nearestObjectPosition;
     public GameObject nearestObject;
-    public Transform grapParent;
+
+    public Material closedObjectMaterial;
+    public Material notClosedObjectMaterial;
 
     public void AddObjectInLiftableList(GameObject objectToAdd)
     {
         liftableObjects.Add(objectToAdd);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other != null)
+        {
+            if (other.gameObject.GetComponent<Rigidbody>() != null && !other.CompareTag("ChainComponent"))
+            {
+                if (liftableObjects.Count > 0)
+                {
+                    GetNearestObject();
+                    foreach (GameObject obj in liftableObjects)
+                    {
+                        obj.GetComponent<MeshRenderer>().material = notClosedObjectMaterial;
+                    }
+                    nearestObject.GetComponent<MeshRenderer>().material = closedObjectMaterial;
+                }
+            }
+        }
+    }
+
+    private void GetNearestObject()
+    {
+        nearestObjectPosition = liftableObjects[0].GetComponent<Collider>().ClosestPoint(transform.position);
+        nearestObject = liftableObjects[0].gameObject;
+
+        foreach (GameObject obj in liftableObjects)
+        {
+            Vector3 currentNearestPoint = obj.transform.GetComponent<Collider>().ClosestPoint(transform.position);
+
+            if (Vector3.Distance(currentNearestPoint, transform.position) < Vector3.Distance(nearestObjectPosition, transform.position))
+            {
+                nearestObject = obj.transform.gameObject;
+                nearestObjectPosition = currentNearestPoint;
+            }
+        }
     }
 
     public void RemoveObjectInLiftableList(GameObject objectToRemove)
@@ -27,23 +65,21 @@ public class GrapLift : MonoBehaviour
         {
             if (context.performed)
             {
-                nearestObjectPosition = liftableObjects[0].GetComponent<Collider>().ClosestPoint(transform.position);
-                nearestObject = liftableObjects[0].gameObject;
-
-                foreach (GameObject obj in liftableObjects)
-                {
-                    Vector3 currentNearestPoint = obj.transform.GetComponent<Collider>().ClosestPoint(transform.position);
-
-                    if (Vector3.Distance(currentNearestPoint, transform.position) < Vector3.Distance(nearestObjectPosition, transform.position))
-                    {
-                        nearestObject = obj.transform.gameObject;
-                        nearestObjectPosition = currentNearestPoint;
-                    }
-                }
+                GetNearestObject();
 
                 if (nearestObject != null)
                 {
+                    nearestObject.gameObject.AddComponent<HingeJoint>();
+                    nearestObject.GetComponent<HingeJoint>().enableCollision = true;
+                    nearestObject.GetComponent<HingeJoint>().axis = new Vector3(0, 1, 0);
                     nearestObject.GetComponent<HingeJoint>().connectedBody = transform.GetComponent<Rigidbody>();
+                }
+            }
+            else if (context.canceled)
+            {
+                if (nearestObject != null && nearestObject.GetComponent<HingeJoint>())
+                {
+                    Destroy(nearestObject.GetComponent<HingeJoint>());
                 }
             }
         }

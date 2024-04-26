@@ -39,7 +39,7 @@ public class GrapController : MonoBehaviour
                 {
                     joint.massScale--;
                 }
-                joint.massScale = Mathf.Clamp(joint.massScale, 1, 8);
+                joint.massScale = Mathf.Clamp(joint.massScale, 0.8f, 8);
             }
         }
     }

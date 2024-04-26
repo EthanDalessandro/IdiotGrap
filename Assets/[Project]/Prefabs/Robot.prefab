@@ -325,7 +325,6 @@ MonoBehaviour:
   chainSpawnedCount: 0
   baseObjectToAttachJoints: {fileID: 4953111122410145731}
   grapFallingSpeed: 0.25
-  valueToSpawnChainComponent: 1.62
 --- !u!1001 &1844624685299705052
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -538,9 +537,9 @@ HingeJoint:
   m_UseAcceleration: 0
   m_Limits:
     min: 0
-    max: 60
+    max: 30
     bounciness: 0
-    bounceMinVelocity: 0.2
+    bounceMinVelocity: 0
     contactDistance: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
