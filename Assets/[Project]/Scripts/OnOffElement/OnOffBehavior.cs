@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OnOffBehavior : MonoBehaviour
 {
-    public bool isOn = false;
+    protected bool isOn = false;
 
     public void SetOnOff(bool value)
     {
