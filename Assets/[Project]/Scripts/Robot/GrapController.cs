@@ -7,7 +7,7 @@ public class GrapController : MonoBehaviour
     public GameObject chainObjectPrefab;
     public Transform parentToSpawnIn;
 
-    public List<HingeJoint> chainComponents;
+    public List<HingeJoint> chainComponents = new List<HingeJoint>();
     public int chainSpawnedCount;
 
     public Transform baseObjectToAttachJoints;
@@ -15,6 +15,7 @@ public class GrapController : MonoBehaviour
     public float grapFallingSpeed;
     private float grapYAxisDirection;
     private bool isArmStabilizing;
+
 
     private void Update()
     {
@@ -38,7 +39,7 @@ public class GrapController : MonoBehaviour
                 {
                     joint.massScale--;
                 }
-                joint.massScale = Mathf.Clamp(joint.massScale, 1, 4);
+                joint.massScale = Mathf.Clamp(joint.massScale, 0.8f, 8);
             }
         }
     }
@@ -68,15 +69,17 @@ public class GrapController : MonoBehaviour
 
     }
 
+    //Pour potentiellement améliorer ce systeme faut voir le changement des conditions de spawn et reset le connected Anchor à -0.6f...
     private void ChainConstruction()
     {
-        if (chainComponents[chainSpawnedCount].connectedAnchor.y <= -1.5f)
+        if (chainComponents[chainSpawnedCount].connectedAnchor.y <= -1.7f)
         {
             GameObject chainSpawned = Instantiate(chainObjectPrefab, chainComponents[chainSpawnedCount].transform.position, Quaternion.identity, parentToSpawnIn);
             chainComponents.Add(chainSpawned.GetComponent<HingeJoint>());
-            chainComponents[chainSpawnedCount + 1].transform.position = new Vector3(chainComponents[chainSpawnedCount].transform.position.x,
-                                                                                chainComponents[chainSpawnedCount].transform.position.y + 0.8f,
-                                                                                chainComponents[chainSpawnedCount].transform.position.z);
+            //J'ai enlevé cette partie parce qu'on se rend compte que set la position ne sert à rien puisque elle se set automatiquement en fonction du connected anchor
+            //chainComponents[chainSpawnedCount + 1].transform.position = new Vector3(chainComponents[chainSpawnedCount].transform.position.x,
+            //                                                                    chainComponents[chainSpawnedCount].transform.position.y + 0.8f,
+            //                                                                    chainComponents[chainSpawnedCount].transform.position.z);
             chainComponents[chainSpawnedCount].connectedBody = chainComponents[chainSpawnedCount + 1].GetComponent<Rigidbody>();
             chainComponents[chainSpawnedCount + 1].connectedBody = baseObjectToAttachJoints.GetComponent<Rigidbody>();
             chainSpawnedCount++;
@@ -84,30 +87,32 @@ public class GrapController : MonoBehaviour
 
         else if (chainComponents.Count > 1)
         {
-            if (chainComponents[chainSpawnedCount].connectedAnchor.y >= -0.599f)
+            if (chainComponents[chainSpawnedCount].connectedAnchor.y >= -0.799f)
             {
+                float yPosBeforeDelete = chainComponents[chainSpawnedCount].connectedAnchor.y;
                 Destroy(chainComponents[chainSpawnedCount].transform.gameObject);
                 chainComponents.RemoveAt(chainSpawnedCount);
                 chainSpawnedCount--;
                 chainComponents[chainSpawnedCount].transform.localRotation = Quaternion.Euler(0, 0, 0);
                 chainComponents[chainSpawnedCount].connectedBody = baseObjectToAttachJoints.GetComponent<Rigidbody>();
+                chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0, chainComponents[chainSpawnedCount].connectedAnchor.y - yPosBeforeDelete, 0);
             }
         }
     }
 
     private void MoveGrap()
     {
-        if (chainComponents[chainSpawnedCount] != null && chainComponents[chainSpawnedCount].connectedAnchor.y <= -0.6f)
+        if (chainComponents[chainSpawnedCount] != null && chainComponents[chainSpawnedCount].connectedAnchor.y <= -0.799f)
         {
-            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(chainComponents[chainSpawnedCount].connectedAnchor.x,
+            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0,
                                                                chainComponents[chainSpawnedCount].connectedAnchor.y + grapYAxisDirection * grapFallingSpeed * Time.deltaTime,
-                                                               chainComponents[chainSpawnedCount].connectedAnchor.z);
+                                                               0);
         }
         else
         {
-            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(chainComponents[chainSpawnedCount].connectedAnchor.x,
-                                                               -0.6f,
-                                                               chainComponents[chainSpawnedCount].connectedAnchor.z);
+            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0,
+                                                               -0.8f,
+                                                               0);
         }
     }
 }

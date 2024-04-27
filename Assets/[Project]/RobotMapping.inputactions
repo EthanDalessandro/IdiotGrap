@@ -15,13 +15,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ReleaseGrap",
-                    "type": "Button",
-                    "id": "165fab1e-751d-40df-9c7d-8701e915bfdf",
-                    "expectedControlType": "Button",
+                    "name": "GrapYAxisMove",
+                    "type": "PassThrough",
+                    "id": "bdd0a42c-1f8e-42ee-99fa-5b9dae8d22ae",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "CloseGrap",
@@ -31,15 +31,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "GrapYAxisMove",
-                    "type": "PassThrough",
-                    "id": "bdd0a42c-1f8e-42ee-99fa-5b9dae8d22ae",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 },
                 {
                     "name": "StabilizeArm",
@@ -109,23 +100,23 @@
                 },
                 {
                     "name": "",
-                    "id": "84d56743-ae3d-4fd9-8e52-0c865345de0a",
+                    "id": "5f1abbf1-e15f-4980-8966-633c0d2b7540",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ReleaseGrap",
+                    "action": "CloseGrap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "5f1abbf1-e15f-4980-8966-633c0d2b7540",
-                    "path": "<Mouse>/leftButton",
+                    "id": "599551f6-59f2-4134-8b6c-d48abf3d6422",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CloseGrap",
+                    "action": "StabilizeArm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -143,7 +134,7 @@
                 {
                     "name": "negative",
                     "id": "277f088b-0e62-4f37-882a-7909b2b0f55e",
-                    "path": "<Keyboard>/x",
+                    "path": "<Mouse>/scroll/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -154,24 +145,13 @@
                 {
                     "name": "positive",
                     "id": "c975a0f8-907c-4116-9d23-535651693439",
-                    "path": "<Keyboard>/c",
+                    "path": "<Mouse>/scroll/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "GrapYAxisMove",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "599551f6-59f2-4134-8b6c-d48abf3d6422",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "StabilizeArm",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }
