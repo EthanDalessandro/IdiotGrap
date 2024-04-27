@@ -8,19 +8,19 @@ public class PressurePlate : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(!_connectedOnOff)
+        if (!_connectedOnOff)
             return;
-        
-        if(other.GetComponent<EnginerControler>() || other.tag == "Crate")
+
+        if (other.GetComponent<EnginerControler>() || other.tag == "Crate")
             _connectedOnOff.SetOnOff(true);
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(!_connectedOnOff)
+        if (!_connectedOnOff)
             return;
-        
-        if(other.GetComponent<EnginerControler>() || other.tag == "Crate")
+
+        if (other.GetComponent<EnginerControler>() || other.tag == "Crate")
             _connectedOnOff.SetOnOff(false);
     }
 }
