@@ -810,6 +810,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5077187719397957716, guid: 1ebf10ef66431b94dae4290f334f7d36,
+        type: 3}
+      propertyPath: m_Spring.spring
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077187719397957716, guid: 1ebf10ef66431b94dae4290f334f7d36,
+        type: 3}
+      propertyPath: m_ConnectedMassScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6762724709908341492, guid: 1ebf10ef66431b94dae4290f334f7d36,
         type: 3}
       propertyPath: m_Name

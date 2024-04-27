@@ -70,9 +70,10 @@ public class GrapController : MonoBehaviour
     }
 
     //Pour potentiellement améliorer ce systeme faut voir le changement des conditions de spawn et reset le connected Anchor à -0.6f...
+    //ÎÎÎ fait.
     private void ChainConstruction()
     {
-        if (chainComponents[chainSpawnedCount].connectedAnchor.y <= -1.7f)
+        if (chainComponents[chainSpawnedCount].connectedAnchor.y <= -1.7f) //Pour construire les bouts de chaines, valeur en brut car ce sont des valeurs à tweak pour que ça fonctionne correctement
         {
             GameObject chainSpawned = Instantiate(chainObjectPrefab, chainComponents[chainSpawnedCount].transform.position, Quaternion.identity, parentToSpawnIn);
             chainComponents.Add(chainSpawned.GetComponent<HingeJoint>());
@@ -85,7 +86,7 @@ public class GrapController : MonoBehaviour
             chainSpawnedCount++;
         }
 
-        else if (chainComponents.Count > 1)
+        if (chainComponents.Count > 1) //Pour detruire les chaines si il y en plus de 1 existante
         {
             if (chainComponents[chainSpawnedCount].connectedAnchor.y >= -0.799f)
             {
@@ -98,21 +99,24 @@ public class GrapController : MonoBehaviour
                 chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0, chainComponents[chainSpawnedCount].connectedAnchor.y - yPosBeforeDelete, 0);
             }
         }
+        if (chainComponents.Count == 1) //Pour bloquer le dernier bout de chaine à une certain hauteur pour pas qu'il se cogne en continue et glitch
+        {
+            if (chainComponents[chainSpawnedCount].connectedAnchor.y >= -0.899f)
+            {
+                chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0, -0.9f, 0);
+            }
+        }
     }
 
     private void MoveGrap()
     {
         if (chainComponents[chainSpawnedCount] != null && chainComponents[chainSpawnedCount].connectedAnchor.y <= -0.799f)
         {
-            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0,
-                                                               chainComponents[chainSpawnedCount].connectedAnchor.y + grapYAxisDirection * grapFallingSpeed * Time.deltaTime,
-                                                               0);
+            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0, chainComponents[chainSpawnedCount].connectedAnchor.y + grapYAxisDirection * grapFallingSpeed * Time.deltaTime,0);
         }
         else
         {
-            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0,
-                                                               -0.8f,
-                                                               0);
+            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0,-0.8f,0);
         }
     }
 }
