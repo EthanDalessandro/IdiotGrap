@@ -6,11 +6,14 @@ using UnityEngine.InputSystem;
 public class EnginerInteraction : MonoBehaviour
 {
     [SerializeField] private Transform _grabTarget;
+    [SerializeField] private float _grabMassThresold = 100;
+    [SerializeField] private float _grabForce = 3;
     [SerializeField] private float _range;
-    [SerializeField] private List<GameObject> _interactibleInRange = new List<GameObject>();
+    [SerializeField] private List<GameObject> _objectInRange = new List<GameObject>();
 
     private Collider _triggerCollider;
-    private Rigidbody _rigidbodyGrab;
+    private Rigidbody _currentGrabRigidbody;
+
 
     void Start()
     {
@@ -25,34 +28,55 @@ public class EnginerInteraction : MonoBehaviour
         ((SphereCollider)_triggerCollider).radius = _range;
     }
 
-    private void GrabObject(GameObject toGrab)
+    void FixedUpdate()
     {
-        _rigidbodyGrab = toGrab.GetComponent<Rigidbody>();
-        _rigidbodyGrab.isKinematic = true;
-        _rigidbodyGrab.transform.parent = _grabTarget;
-        _rigidbodyGrab.MovePosition(_grabTarget.position);
+        if (_currentGrabRigidbody)
+            _currentGrabRigidbody.MovePosition(Vector3.Lerp(_currentGrabRigidbody.position, _grabTarget.position
+                                                            , Time.fixedDeltaTime * _grabForce));
+    }
+
+    private void GrabObject()
+    {
+        _currentGrabRigidbody = GetNearestObject()?.GetComponent<Rigidbody>();
+        if (_currentGrabRigidbody)
+            _currentGrabRigidbody.useGravity = false;
     }
 
     private void DropObject()
     {
-        _rigidbodyGrab.isKinematic = false;
-        _rigidbodyGrab.transform.parent = null;
-        _rigidbodyGrab = null;
+        if (!_currentGrabRigidbody)
+            return;
+
+        _currentGrabRigidbody.useGravity = true;
+        _currentGrabRigidbody = null;
     }
 
     private GameObject GetNearestObject()
     {
+        if (_objectInRange.Count == 0)
+            return null;
+
         float minDistance = Mathf.Infinity;
         GameObject toReturn = null;
 
-        foreach (var item in _interactibleInRange)
+        foreach (var item in _objectInRange)
         {
             float currentDistance = Vector3.Distance(transform.position
                                                    , item.GetComponent<Collider>().ClosestPoint(transform.position));
+            //! Check pour la distance
             if (currentDistance < minDistance)
             {
-                minDistance = currentDistance;
-                toReturn = item;
+                //! Check orientation
+                Vector3 itemDirection = (item.transform.position - transform.position).normalized;
+                // print("Dot : " + Vector3.Dot(transform.forward, itemDirection));
+                if (Vector3.Dot(transform.forward, itemDirection) >= 0)
+                {
+                    if (item.GetComponent<Rigidbody>().mass <= _grabMassThresold)
+                    {
+                        minDistance = currentDistance;
+                        toReturn = item;
+                    }
+                }
             }
         }
 
@@ -61,28 +85,37 @@ public class EnginerInteraction : MonoBehaviour
 
     private void OnInteract(InputValue value)
     {
-        print("OOOO");
-        if (_interactibleInRange.Count == 0)
+        // print("OOOO");
+        if (_objectInRange.Count == 0)
             return;
 
         float buttonValue = value.Get<float>();
-        print("Interact value : " + buttonValue);
+        // print("Interact value : " + buttonValue);
+
         if (buttonValue > .5f)
-            GrabObject(GetNearestObject());
+            GrabObject();
         else
             DropObject();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.GetComponent<EnginerControler>())
+            return;
+
         Rigidbody otherRigidbody = other.GetComponent<Rigidbody>();
         if (otherRigidbody)
-            _interactibleInRange.Add(other.gameObject);
+            _objectInRange.Add(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (_interactibleInRange.Contains(other.gameObject))
-            _interactibleInRange.Remove(other.gameObject);
+        if (_objectInRange.Contains(other.gameObject))
+            _objectInRange.Remove(other.gameObject);
+    }
+
+    public float GetItemGrabMass()
+    {
+        return _currentGrabRigidbody ? _currentGrabRigidbody.GetComponent<Rigidbody>().mass : 1; 
     }
 }
