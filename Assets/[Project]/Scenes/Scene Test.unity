@@ -810,46 +810,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5077187719397957716, guid: 1ebf10ef66431b94dae4290f334f7d36,
+    - target: {fileID: 1108464715740302175, guid: 1ebf10ef66431b94dae4290f334f7d36,
         type: 3}
-      propertyPath: m_Limits.max
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5077187719397957716, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_Limits.min
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5077187719397957716, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: m_Spring.spring
+      propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5077187719397957716, guid: 1ebf10ef66431b94dae4290f334f7d36,
         type: 3}
-      propertyPath: m_ExtendedLimits
-      value: 1
+      propertyPath: m_Limits.max
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077187719397957716, guid: 1ebf10ef66431b94dae4290f334f7d36,
+        type: 3}
+      propertyPath: m_Limits.min
+      value: -270
       objectReference: {fileID: 0}
     - target: {fileID: 5077187719397957716, guid: 1ebf10ef66431b94dae4290f334f7d36,
         type: 3}
       propertyPath: m_ConnectedMassScale
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6762724709908341492, guid: 1ebf10ef66431b94dae4290f334f7d36,
         type: 3}
       propertyPath: m_Name
       value: Robot
       objectReference: {fileID: 0}
-    - target: {fileID: 7153693604546174998, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: closedObjectMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 1ebea656f517a844db122f88d6224996, type: 2}
-    - target: {fileID: 7153693604546174998, guid: 1ebf10ef66431b94dae4290f334f7d36,
-        type: 3}
-      propertyPath: notClosedObjectMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 1f450f060994b5346bf1a3efa6bd9b14, type: 2}
     - target: {fileID: 8259937672688721926, guid: 1ebf10ef66431b94dae4290f334f7d36,
         type: 3}
       propertyPath: m_LocalPosition.x
