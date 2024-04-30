@@ -179,11 +179,11 @@ HingeJoint:
     force: 0
     freeSpin: 0
   m_UseLimits: 1
-  m_ExtendedLimits: 0
+  m_ExtendedLimits: 1
   m_UseAcceleration: 0
   m_Limits:
-    min: 0
-    max: 30
+    min: -90
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0
     contactDistance: 0
@@ -192,4 +192,4 @@ HingeJoint:
   m_EnableCollision: 1
   m_EnablePreprocessing: 1
   m_MassScale: 1
-  m_ConnectedMassScale: 1
+  m_ConnectedMassScale: 1.5
