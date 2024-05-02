@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class EnginerInteraction : MonoBehaviour
 {
-    [SerializeField] private Transform _grabTarget;
+    [SerializeField] private Rigidbody _grabRigidbody;
     [SerializeField] private float _grabMassThresold = 100;
     [SerializeField] private float _grabForce = 3;
     [SerializeField] private float _range;
@@ -28,18 +28,28 @@ public class EnginerInteraction : MonoBehaviour
         ((SphereCollider)_triggerCollider).radius = _range;
     }
 
-    void FixedUpdate()
-    {
-        if (_currentGrabRigidbody)
-            _currentGrabRigidbody.MovePosition(Vector3.Lerp(_currentGrabRigidbody.position, _grabTarget.position
-                                                            , Time.fixedDeltaTime * _grabForce));
-    }
-
     private void GrabObject()
     {
         _currentGrabRigidbody = GetNearestObject()?.GetComponent<Rigidbody>();
-        if (_currentGrabRigidbody)
-            _currentGrabRigidbody.useGravity = false;
+        if (!_currentGrabRigidbody)
+            return;
+
+        print("Grab Object !");
+        HingeJoint joint = _currentGrabRigidbody.gameObject.AddComponent<HingeJoint>();
+
+        // joint.autoConfigureConnectedAnchor = false;
+        // joint.connectedAnchor = Vector3.zero;
+        joint.connectedBody = _grabRigidbody;
+    }
+
+    void FixedUpdate()
+    {
+        if (GetComponentInParent<Rigidbody>().velocity.magnitude > .1 && _currentGrabRigidbody)
+        {
+            HingeJoint joint = _currentGrabRigidbody.GetComponent<HingeJoint>();
+            joint.autoConfigureConnectedAnchor = false;
+            joint.connectedAnchor = Vector3.Lerp(joint.connectedAnchor, Vector3.zero, Time.fixedDeltaTime * GetComponentInParent<Rigidbody>().velocity.magnitude);
+        }
     }
 
     private void DropObject()
@@ -47,7 +57,8 @@ public class EnginerInteraction : MonoBehaviour
         if (!_currentGrabRigidbody)
             return;
 
-        _currentGrabRigidbody.useGravity = true;
+        print("Drop Object");
+        Destroy(_currentGrabRigidbody.gameObject.GetComponent<HingeJoint>());
         _currentGrabRigidbody = null;
     }
 
@@ -116,6 +127,6 @@ public class EnginerInteraction : MonoBehaviour
 
     public float GetItemGrabMass()
     {
-        return _currentGrabRigidbody ? _currentGrabRigidbody.GetComponent<Rigidbody>().mass : 1; 
+        return _currentGrabRigidbody ? _currentGrabRigidbody.GetComponent<Rigidbody>().mass : 1;
     }
 }
