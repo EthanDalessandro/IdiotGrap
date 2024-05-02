@@ -29,7 +29,7 @@ public class EnginerControler : MonoBehaviour
         Vector3 forceDirection = new Vector3(_inputVector.x, 0, _inputVector.y);
         float speedMult = _moveSpeed / _enginerInteraction.GetItemGrabMass();
         speedMult = Mathf.Clamp(speedMult, 8, 1000);
-        print(speedMult);
+        // print(speedMult);
         _rigidbody.AddForce(forceDirection * speedMult * _rigidbody.mass, ForceMode.Force);
     }
 
