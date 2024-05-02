@@ -28,7 +28,7 @@ public class EnginerInteraction : MonoBehaviour
         ((SphereCollider)_triggerCollider).radius = _range;
     }
 
-    private void GrabObject()
+    private void GrabObjectOrInteract()
     {
         _currentGrabRigidbody = GetNearestObject()?.GetComponent<Rigidbody>();
         if (!_currentGrabRigidbody)
@@ -37,20 +37,20 @@ public class EnginerInteraction : MonoBehaviour
         print("Grab Object !");
         HingeJoint joint = _currentGrabRigidbody.gameObject.AddComponent<HingeJoint>();
 
-        // joint.autoConfigureConnectedAnchor = false;
-        // joint.connectedAnchor = Vector3.zero;
+        joint.autoConfigureConnectedAnchor = false;
+        joint.connectedAnchor = Vector3.zero;
         joint.connectedBody = _grabRigidbody;
     }
 
-    void FixedUpdate()
-    {
-        if (GetComponentInParent<Rigidbody>().velocity.magnitude > .1 && _currentGrabRigidbody)
-        {
-            HingeJoint joint = _currentGrabRigidbody.GetComponent<HingeJoint>();
-            joint.autoConfigureConnectedAnchor = false;
-            joint.connectedAnchor = Vector3.Lerp(joint.connectedAnchor, Vector3.zero, Time.fixedDeltaTime * GetComponentInParent<Rigidbody>().velocity.magnitude);
-        }
-    }
+    // void FixedUpdate()
+    // {
+    //     if (GetComponentInParent<Rigidbody>().velocity.magnitude > .1 && _currentGrabRigidbody)
+    //     {
+    //         HingeJoint joint = _currentGrabRigidbody.GetComponent<HingeJoint>();
+    //         joint.autoConfigureConnectedAnchor = false;
+    //         joint.connectedAnchor = Vector3.Lerp(joint.connectedAnchor, Vector3.zero, Time.fixedDeltaTime * GetComponentInParent<Rigidbody>().velocity.magnitude);
+    //     }
+    // }
 
     private void DropObject()
     {
@@ -104,7 +104,7 @@ public class EnginerInteraction : MonoBehaviour
         // print("Interact value : " + buttonValue);
 
         if (buttonValue > .5f)
-            GrabObject();
+            GrabObjectOrInteract();
         else
             DropObject();
     }
