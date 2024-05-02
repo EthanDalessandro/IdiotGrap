@@ -16,6 +16,17 @@ public class GrapController : MonoBehaviour
     private float grapYAxisDirection;
     private bool isArmStabilizing;
 
+    public void SetGlobalMass()
+    {
+        if (chainSpawnedCount > 1)
+        {
+            for (int i = 0; i < chainComponents.Count; i++)
+            {
+                chainComponents[i].connectedMassScale = Mathf.Lerp(0.2f, 1, Mathf.InverseLerp(0, chainComponents.Count, i)) ;
+                chainComponents[i].connectedMassScale = Mathf.Clamp(chainComponents[i].connectedMassScale, 0.2f, 1);
+            }
+        }
+    }
 
     private void Update()
     {
@@ -39,7 +50,7 @@ public class GrapController : MonoBehaviour
                 {
                     joint.massScale--;
                 }
-                joint.massScale = Mathf.Clamp(joint.massScale, 0.8f, 8);
+                joint.massScale = Mathf.Clamp(joint.massScale, 1f, 8);
             }
         }
     }
@@ -49,10 +60,12 @@ public class GrapController : MonoBehaviour
         if (context.performed)
         {
             grapYAxisDirection = context.ReadValue<float>();
+            //SetGlobalMass();
         }
         else
         {
             grapYAxisDirection = 0;
+            //SetGlobalMass();
         }
     }
 
@@ -112,11 +125,11 @@ public class GrapController : MonoBehaviour
     {
         if (chainComponents[chainSpawnedCount] != null && chainComponents[chainSpawnedCount].connectedAnchor.y <= -0.799f)
         {
-            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0, chainComponents[chainSpawnedCount].connectedAnchor.y + grapYAxisDirection * grapFallingSpeed * Time.deltaTime,0);
+            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0, chainComponents[chainSpawnedCount].connectedAnchor.y + grapYAxisDirection * grapFallingSpeed * Time.deltaTime, 0);
         }
         else
         {
-            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0,-0.8f,0);
+            chainComponents[chainSpawnedCount].connectedAnchor = new Vector3(0, -0.8f, 0);
         }
     }
 }

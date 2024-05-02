@@ -4,12 +4,15 @@ using UnityEngine.InputSystem;
 
 public class GrapLift : MonoBehaviour
 {
-    public List<GameObject> liftableObjects;
+    public float grapForceThreshold;
+    public List<GameObject> liftableObjects = new List<GameObject>();
     private Vector3 nearestObjectPosition;
     public GameObject nearestObject;
 
     public Material closedObjectMaterial;
     public Material notClosedObjectMaterial;
+
+    //KAARIS est trop UwU Vive le kaaris
 
     public void AddObjectInLiftableList(GameObject objectToAdd)
     {
@@ -67,7 +70,7 @@ public class GrapLift : MonoBehaviour
             {
                 GetNearestObject();
 
-                if (nearestObject != null)
+                if (nearestObject != null && nearestObject.GetComponent<Rigidbody>().mass <= grapForceThreshold)
                 {
                     nearestObject.gameObject.AddComponent<HingeJoint>();
                     nearestObject.GetComponent<HingeJoint>().enableCollision = true;

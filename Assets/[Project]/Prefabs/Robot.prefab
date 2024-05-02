@@ -485,7 +485,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 1
 --- !u!59 &5077187719397957716
 HingeJoint:
@@ -503,8 +503,8 @@ HingeJoint:
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
-    spring: 0
-    damper: 50
+    spring: 10
+    damper: 1
     targetPosition: 0
   m_UseMotor: 0
   m_Motor:
@@ -515,8 +515,8 @@ HingeJoint:
   m_ExtendedLimits: 1
   m_UseAcceleration: 0
   m_Limits:
-    min: -90
-    max: 90
+    min: -360
+    max: 360
     bounciness: 0
     bounceMinVelocity: 0
     contactDistance: 0
@@ -525,7 +525,7 @@ HingeJoint:
   m_EnableCollision: 1
   m_EnablePreprocessing: 1
   m_MassScale: 1
-  m_ConnectedMassScale: 1.5
+  m_ConnectedMassScale: 1
 --- !u!114 &7153693604546174998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,6 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7761ab5cfca253a4aa1e1443f618bc76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grapForceThreshold: 1.53
   liftableObjects: []
   nearestObject: {fileID: 0}
   closedObjectMaterial: {fileID: 2100000, guid: 1ebea656f517a844db122f88d6224996,
@@ -564,9 +565,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2.0311115
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5155556, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!4 &2167310169338921783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f2d0cd41a7d627046a6ab27c08032023,
