@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fanRotation: {fileID: 104824750596187167}
-  _maxWindForce: 200
+  _maxWindForce: 30
 --- !u!65 &5610749584564854837
 BoxCollider:
   m_ObjectHideFlags: 0
