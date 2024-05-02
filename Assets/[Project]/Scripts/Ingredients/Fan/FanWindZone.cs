@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class FanWindZone : MonoBehaviour, IEffectable
+public class FanWindZone : MonoBehaviour
 {
     [SerializeField] private FanRotation _fanRotation;
-    [SerializeField][Range(100, 300)] private float _maxWindForce;
+    [SerializeField] private float _maxWindForce;
     private ParticleSystem _particuleSystem;
     private float _currentWindForce;
     private bool _updateForce;
@@ -43,6 +43,14 @@ public class FanWindZone : MonoBehaviour, IEffectable
         if (_currentWindForce > 0)
         {
             bodyToAffect.AddForce(transform.forward * _currentWindForce);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (_currentWindForce > 0 && other.GetComponent<Rigidbody>())
+        {
+            other.GetComponent<Rigidbody>().AddForce(transform.forward * _currentWindForce);
         }
     }
 
